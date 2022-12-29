@@ -5,10 +5,14 @@ from utils.find import find, findAll
 from utils.screenshot import screenshot
 from utils.click import click
 import os
+import sys
 
 
 if __name__ == "__main__":
-    device = AdbDeviceTcp('localhost', 57022, default_transport_timeout_s=9.)
+
+    port = sys.argv[sys.argv.index('-p')+1]
+
+    device = AdbDeviceTcp('localhost', port, default_transport_timeout_s=9.)
     device.connect(auth_timeout_s=0.1)
     total_found = 0
 
