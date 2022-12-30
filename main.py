@@ -1,11 +1,17 @@
 import pyautogui
 import time
 from adb_shell.adb_device import AdbDeviceTcp
-from utils.find import find, findAll
+from utils.find import findAll, find
 from utils.screenshot import screenshot
 from utils.click import click
 import os
 import sys
+
+claim = './images/claim.png'
+leave = './images/leave.png'
+pivot = './images/pivot.png'
+repeat = './images/repeat.png'
+stamina = './images/stamina.png'
 
 
 if __name__ == "__main__":
@@ -26,18 +32,17 @@ if __name__ == "__main__":
             shot = screenshot(tw)
 
             print('Found ', total_found, ' pivots')
-            # Find Pivots
-            pivots = findAll('pivot', shot)
+            pivots = findAll(pivot, shot)
 
             if pivots != -1:
                 for pivot in pivots:
                     click(pivot, tw, device)
                     total_found += 1
+                click(find(claim, shot), tw, device)
                 # click(find('stamina', shot), tw, device)
-                click(find('claim', shot), tw, device)
             else:
-                click(find('leave', shot), tw, device)
-                click(find('repeat', shot), tw, device)
+                click(find(leave, shot), tw, device)
+                click(find(repeat, shot), tw, device)
 
     except KeyboardInterrupt:
         pass
