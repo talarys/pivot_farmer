@@ -21,6 +21,7 @@ if __name__ == "__main__":
     device = AdbDeviceTcp('localhost', port, default_transport_timeout_s=9.)
     device.connect(auth_timeout_s=0.1)
     total_found = 0
+    total_runs = 0
 
     try:
         while True:
@@ -31,18 +32,21 @@ if __name__ == "__main__":
             # Take a screenshot
             shot = screenshot(tw)
 
-            print('Found ', total_found, ' pivots')
+            print(f'Found {total_found} pivots in {total_runs} runs')
             pivots = findAll(pivot, shot)
 
-            if pivots != -1:
+            if pivots:
                 for p in pivots:
                     click(p, tw, device)
                     total_found += 1
                 click(find(claim, shot), tw, device)
-                # click(find('stamina', shot), tw, device)
             else:
                 click(find(leave, shot), tw, device)
-                click(find(repeat, shot), tw, device)
+                shot = screenshot(tw)
+                r = find(repeat, shot)
+                if r:
+                    total_runs += 1
+                    click(find(repeat, shot), tw, device)
 
     except KeyboardInterrupt:
         pass

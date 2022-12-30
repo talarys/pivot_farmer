@@ -24,7 +24,7 @@ def findAll(template, image):
         else:
             break
 
-    return matches if matches != [] else -1
+    return matches
 
 
 def find(template, image):
@@ -35,4 +35,4 @@ def find(template, image):
 
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(r)
 
-    return max_loc if max_val > 0.8 else -1
+    return max_loc if max_val > 0.8 else 0
