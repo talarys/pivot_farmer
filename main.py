@@ -35,8 +35,8 @@ if __name__ == "__main__":
             pivots = findAll(pivot, shot)
 
             if pivots != -1:
-                for pivot in pivots:
-                    click(pivot, tw, device)
+                for p in pivots:
+                    click(p, tw, device)
                     total_found += 1
                 click(find(claim, shot), tw, device)
                 # click(find('stamina', shot), tw, device)
